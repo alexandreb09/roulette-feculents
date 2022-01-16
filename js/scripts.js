@@ -2,7 +2,7 @@
 // Scripts
 // 
 
-window.addEventListener('DOMContentLoaded', event => {
+window.addEventListener('DOMContentLoaded', () => {
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
@@ -22,14 +22,14 @@ window.addEventListener('DOMContentLoaded', event => {
     // Shrink the navbar when page is scrolled
     document.addEventListener('scroll', navbarShrink);
 
-    // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            offset: 72,
-        });
-    };
+    // // Activate Bootstrap scrollspy on the main nav element
+    // const mainNav = document.body.querySelector('#mainNav');
+    // if (mainNav) {
+    //     new bootstrap.ScrollSpy(document.body, {
+    //         target: '#mainNav',
+    //         offset: 72,
+    //     });
+    // };
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
@@ -50,6 +50,7 @@ window.addEventListener('DOMContentLoaded', event => {
     let liste_items = ["Pates", "Blé", "Riz", "Semoule"];
     const ANIMATION_MAX = 100;
     const ANIMATION_MIN = 40;
+    let isSubmitting = false;
 
     let addItem = function(itemStr){
         // Create Dom
@@ -81,6 +82,10 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
     $("#submitButton").on("submit click", function(){
+        // Prevent multiple submission
+        if (isSubmitting) return;
+        isSubmitting = true;
+
         let rand_position = Math.floor(Math.random()*getAllItems().length);
         let childrenDom = $("#liste-items").children();
 
@@ -109,7 +114,6 @@ window.addEventListener('DOMContentLoaded', event => {
                 })
             ;
         }
-        console.log(rand_position);
         highlightDom(0, 100 + rand_position, childrenDom);
     });
 });
