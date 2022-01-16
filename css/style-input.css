@@ -1,0 +1,109 @@
+ * {
+	 box-sizing: border-box;
+}
+ html, body {
+	 overflow-x: hidden;
+	 font-family: "Open Sans", sans-serif;
+	 font-weight: 300;
+	 color: #fff;
+	 background: #efefef;
+}
+ .row {
+	 max-width: 800px;
+	 margin: 2rem auto;
+	 background: #032429;
+	 position: relative;
+	 z-index: 1;
+	 text-align: center;
+     background: transparent;
+}
+ .row:before {
+	 position: absolute;
+	 content: "";
+	 display: block;
+	 top: 0;
+	 left: -5000px;
+	 height: 100%;
+	 width: 15000px;
+	 z-index: -1;
+	 background: inherit;
+}
+ .row:first-child {
+	 padding: 40px 30px;
+}
+ .row span {
+    position: relative;
+    display: inline-block;
+    margin: 30px 10px;
+    flex-shrink: unset;
+    width: unset;
+    max-width: unset;
+    padding-right: unset;
+    padding-left: unset;
+}
+ .skinny {
+	 display: inline-block;
+	 width: 215px;
+	 padding: 10px 0 10px 15px;
+	 font-family: "Open Sans", sans;
+	 font-weight: 400;
+	 color: #377d6a;
+	 background: #efefef;
+	 border: 0;
+	 border-radius: 3px;
+	 outline: 0;
+	 text-indent: 75px;
+	 transition: all 0.3s ease-in-out;
+}
+ .skinny::-webkit-input-placeholder {
+	 color: #efefef;
+	 text-indent: 0;
+	 font-weight: 300;
+}
+ .skinny + label {
+	 display: inline-block;
+	 position: absolute;
+	 transform: translateX(0);
+	 top: 0;
+	 left: 0;
+	 padding: 10px 15px;
+	 text-shadow: 0 1px 0 rgba(19, 74, 70, .4);
+	 transition: all 0.3s ease-in-out;
+	 border-top-left-radius: 3px;
+	 border-bottom-left-radius: 3px;
+	 overflow: hidden;
+}
+ .skinny + label:before, .skinny + label:after {
+	 content: "";
+	 position: absolute;
+	 right: 0;
+	 left: 0;
+	 z-index: -1;
+	 transition: all 0.3s ease-in-out;
+}
+ .skinny + label:before {
+	 top: 5px;
+	 bottom: 5px;
+	 background: #377d6a;
+	 border-radius: 7px;
+}
+ .skinny + label:after {
+	 top: 0;
+	 bottom: 0;
+	 background: #377d6a;
+}
+ .skinny:focus, .skinny:active {
+	 color: #377d6a;
+	 text-indent: 0;
+	 background: #fff;
+}
+ .skinny:focus::-webkit-input-placeholder, .skinny:active::-webkit-input-placeholder {
+	 color: #aaa;
+}
+ .skinny:focus + label, .skinny:active + label {
+	 transform: translateY(-100%);
+     border-radius: 10%;
+}
+ .skinny:focus + label:after, .skinny:active + label:after {
+	 transform: translateY(100%);
+}
