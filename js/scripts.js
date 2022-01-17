@@ -89,6 +89,8 @@ window.addEventListener('DOMContentLoaded', () => {
         let rand_position = Math.floor(Math.random()*getAllItems().length);
         let childrenDom = $("#liste-items").children();
 
+        childrenDom.each((i,e) => {$(e).css({background: "transparent"});})
+
         let computeDelay = function(i, n){
             if (i < n/2) return (ANIMATION_MIN - ANIMATION_MAX) * 2 / n * i + ANIMATION_MAX;
             return (ANIMATION_MAX - ANIMATION_MIN)/(0.5 * n) * i -ANIMATION_MAX + 2 * ANIMATION_MIN
@@ -98,6 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
             let $item = childrenDom.eq(i % childrenDom.length);
             if (i === n){
                 $item.css({background: "rgb(26, 87, 132)"});
+                isSubmitting = false;
                 return;
             };
 
