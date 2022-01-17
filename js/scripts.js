@@ -47,9 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
     /*******************************************/
     /*                  ITEMS                  */
     /*******************************************/
-    let liste_items = ["Pates", "Blé", "Riz", "Semoule"];
-    const ANIMATION_MAX = 100;
-    const ANIMATION_MIN = 40;
+    const items_default = ["Pates", "Blé", "Riz", "Semoule"].sort(() => 0.5 - Math.random());;
     let isSubmitting = false;
 
     let addItem = function(itemStr){
@@ -61,18 +59,18 @@ window.addEventListener('DOMContentLoaded', () => {
         removeIcon.on("click", null, null, () => itemDom.fadeOut(300, function() { $(this).remove(); }));
     }
 
-    let getAllItems = function(){
-        let items = [];
-        $("#liste-items").children().each((i,e) => items.push($(e).data("item").toLowerCase()));
-        return items;
-    }
+    let randomIntFromInterval = function(min, max) { return Math.floor(Math.random() * (max - min + 1) + min)}
 
-    liste_items.forEach(addItem);
+    items_default.forEach(addItem);
 
     $("#item-add").on("keydown", null, null, (e) => {
         if(e.key === 'Enter') {
             let new_item_str = $("#item-add").val();
-            if (getAllItems().includes(new_item_str.toLowerCase())){
+            // Get all the items in cards
+            let items_all = [];
+            $("#liste-items").children().each((i,e) => items_all.push($(e).data("item").toLowerCase()));
+            // Check if item already exist
+            if (items_all.includes(new_item_str.toLowerCase())){
                 alert("L'élément \"" + new_item_str + "\" est déjà présent dans la liste.")
             } else {
                 addItem(new_item_str);
@@ -86,15 +84,12 @@ window.addEventListener('DOMContentLoaded', () => {
         if (isSubmitting) return;
         isSubmitting = true;
 
-        let rand_position = Math.floor(Math.random()*getAllItems().length);
         let childrenDom = $("#liste-items").children();
+        let rand_position = randomIntFromInterval(0, childrenDom.length);
 
         childrenDom.each((i,e) => {$(e).css({background: "transparent"});})
 
-        let computeDelay = function(i, n){
-            if (i < n/2) return (ANIMATION_MIN - ANIMATION_MAX) * 2 / n * i + ANIMATION_MAX;
-            return (ANIMATION_MAX - ANIMATION_MIN)/(0.5 * n) * i -ANIMATION_MAX + 2 * ANIMATION_MIN
-        }
+        let computeDelay = x => 100 * Math.sin(((Math.min(x, 75)-55)/(22))-0.4)+150;
         
         let highlightDom = function(i, n, childrenDom){
             let $item = childrenDom.eq(i % childrenDom.length);
@@ -105,11 +100,11 @@ window.addEventListener('DOMContentLoaded', () => {
             };
 
             $item.css({background: "rgb(26, 87, 132)"})
-                .delay(computeDelay(i, n))
+                .delay(computeDelay(i))
                 .promise()
                 .done(function(){
                     $item.css({background: "transparent"})
-                        .delay(computeDelay(i, n)/4)
+                        .delay(20)
                         .promise()
                         .done(function () {
                             highlightDom(i + 1, n, childrenDom);
@@ -117,6 +112,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 })
             ;
         }
-        highlightDom(0, 100 + rand_position, childrenDom);
+        highlightDom(0, 80 + rand_position, childrenDom);
     });
 });
