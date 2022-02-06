@@ -10,6 +10,7 @@ const prop = {
     itemLabelColors: ['#fff'],
     itemLabelBaselineOffset: -0.07,
     lineColor: '#fff',
+    isInteractive: false,
     itemBackgroundColors: ['#ffc93c', '#66bfbf', '#a2d5f2', '#515070', '#43658b', '#ed6663', '#d54062' ],
     image: './assets/img/example-0-image.svg',
     overlayImage: './assets/img/example-0-overlay.svg',

@@ -1,3 +1,6 @@
+body.modal-open {
+    overflow: hidden;
+}
 .modal {
     color: var(--bs-gray-dark)
 }
@@ -20,6 +23,7 @@ html, body {
     background: #efefef;
 }
 
+
 /************************************/
 /*             WHEEL                */
 /************************************/
@@ -28,19 +32,6 @@ html, body {
 @import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
 
-body {
-    overflow-x: hidden;
-    font-family: "Open Sans", sans-serif;
-    /* Prevent pull-down-to-refresh gesture */
-    /* overscroll-behavior-y: contain; */
-    
-    /* Prevent iOS rubber-band effect */
-    /* position: fixed; */
-    width: 100%;
-    
-    /* Prevent browser from handling touch events */
-    touch-action: none;
-}
 
 .wheel-wrapper {
     overflow: hidden;
@@ -53,8 +44,8 @@ body {
     font-family: 'Lucida Grande', sans-serif;
     /* font-size: 15px; */
     -webkit-tap-highlight-color: transparent;
-    user-select: none;
     /* Prevent selecting ui text when dragging */
+    user-select: none;
 }
 
 /************************************/
