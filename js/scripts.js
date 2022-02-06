@@ -53,7 +53,7 @@ $(document).ready( () => {
     const $mdlTxt = $("#modal #txt-modal-result");
     const $mdlCls = $("#modal #modal-close");
     const $btnWhl = $("#turn-wheel-btn");
-    const $chgTpe = $("#list-type a");
+    const $chgTpe = $('#list-type [data-role="switch-type"]');
     
     // Create wheel Object 
     const wheel = new Wheel(document.querySelector('.wheel-wrapper'));
