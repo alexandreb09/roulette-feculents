@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Roulette des féculents</title>
+        <title>Roulette ECN</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
         <!-- Font Awesome icons (free version)-->
@@ -14,8 +14,8 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-        <link href="css/style-input.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet"/>
+        <link href="css/styles-framework.css" rel="stylesheet"/>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -26,9 +26,26 @@
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarResponsive">
+                    <ul class="navbar-nav" id="list-type">
                         <li class="nav-item mx-0 mx-lg-1">
+                            <a id="switch-to-spe" class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-type="spe">
+                                <i class="fa fa-user-md me-2" aria-hidden="true"></i>Spécialité
+                            </a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a id="switch-to-city" class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-type="ville">
+                                <i class="fas fa-map-marker-alt me-2"></i>Ville
+                            </a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a id="switch-to-food" class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-type="food">
+                                <i class="fas fa-utensils me-2"></i>Féculent
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item mx-0 ms-lg-1 me-auto">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" href="https://github.com/alexandreb09/roulette-feculents">
                                 <i class="fab fa-github me-2"></i>Github
                             </a>
@@ -42,36 +59,95 @@
             <div class="container d-flex align-items-center flex-column">
                 <!-- <img class="masthead-avatar mb-5" src="assets/img/roulette.png" alt="..." /> -->
                 <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Quel féculent choisir ?</h1>
+                <h1 id="txt-title" class="masthead-heading text-uppercase mb-0">Quelle sera ta spécialité ?</h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">Liste des féculents:</p>
-                <div class="d-flex flex-wrap justify-content-around mt-2" id="liste-items"></div>
+                <!-- Submit Button-->
+                <!-- <button class="btn btn-xl btn-outline-light mt-5" id="submitButton" type="submit">Tirer au sort</button> -->
+                
+                <div class="gui-wrapper">
+                    <p id="txt-instructions"></p>
+                </div>
+                <button id="turn-wheel-btn" class="btn btn-item btn-outline-light">Lancer la roue !</button>
+                <div class="wheel-wrapper"></div>
                 <!-- New item input -->
                 <div class="row">
                     <span>
-                      <input class="skinny" id="item-add" type="text" placeholder="Saisir un féculent..." />
-                      <label for="english">Nouvel item</label>
+                        <input class="skinny" id="item-add" type="text" placeholder="Saisir une spé..." />
+                        <label for="english" id="txt-label-add"></label>
                     </span>
                 </div>
-                <!-- Submit Button-->
-                <button class="btn btn-xl btn-outline-light mt-5" id="submitButton" type="submit">Tirer au sort</button>
+                <!-- Masthead Subheading-->
+                <p id="txt-list-items" class="masthead-subheading font-weight-light mb-0"></p>
+                <div class="d-flex flex-wrap justify-content-center mt-2" id="liste-items"></div>
             </div>
         </header>
         <!-- Copyright Section-->
         <div class="copyright p-4 text-center text-white">
-            <div class=""><small>Copyright &copy; La-roulette-des-féculents 2021</small></div>
+            <small>Copyright &copy; Made with love - 2021</small>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <div class="w-100 mt-2">
+                            <img src="./assets/img/a-votre-sante.png">
+                        </div>
+                        <h5 class="modal-title mt-3" id="txt-modal-result">
+                            Ta spécialité sera <b id="modal-text"></b>
+                        </h5>
+                        <div class="w-100 text-center mt-5">
+                            <button id="modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- JQeury 3.6 JS-->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+
+        <script>
+            let type_displayed = "spe";
+
+            const items_default = {
+                spe: ["Allergo", "Anapath", "Anesth-réa", "Bio méd", "Chirurgie", "Dermato", "Endoc", "Génétique", "Gériatrie", "Gynéco", "Gynéco-obs", "Hémato", "HGE", "Maladies inf", "Cardio", "Urgence", "Médecine du travail", "Méd gé", "MIR", "Méd interne", "Méd légale", "Médecine nucléaire", "MPR", "Médecine vasculaire", "Néphro", "Neurochir", "Neuro", "Onco", "Ophta", "ORL", "Pédia", "Pneumo", "Psy", "Radio", "Rhumato", "Santé P", "Uro"],
+                ville: ["CHU Nantes", "Hospices civils de Lyon", "CHU Montpellier-Nîmes", "CHU Rennes", "Chu Bordeaux", "CHU Toulouse", "AP-HP de Paris", "CHU Grenoble", "AP-HP de Marseille", "CHRU Lille", "CHU Strasbourg", "CHU Réunion", "CHU Angers", "CHU Nice", "CHU Rouen", "CHU Saint-Etienne", "CHU Antilles-Guyane", "CHU Dijon", "CHU Brest", "CHU Clermont-Ferrand", "CHU Reims", "CHU Caen", "CHU Nancy", "CHU Tours", "CHU Besançon", "CHU Limoges", "CHU Poitiers", "CHU Amiens"],
+                food: ["Pates","Riz", "Blé", "Semoule", "Patates"],
+            };
+            
+            const translations = {
+                spe: {
+                    "txt-title": "Quelle sera ta spécialité ?",
+                    "txt-instructions": "Tournes la roue et découvres ta future spé !",
+                    "txt-label-add": "Ajouter une spé",
+                    "txt-list-items": "Liste des spécialités",
+                    "txt-modal-result": 'Ta spécialité sera <strong>"%value%"</strong>',
+                }, 
+                ville: {
+                    "txt-title": "Quelle sera ta ville ?",
+                    "txt-instructions": "Tournes la roue et découvres ta future ville !",
+                    "txt-label-add": "Ajouter une ville",
+                    "txt-list-items": "Liste des villes",
+                    "txt-modal-result": 'Tu iras à <strong>"%value%"</strong>',
+                },
+                food: {
+                    "txt-title": "Quel féculent choisir ?",
+                    "txt-instructions": "Tournes la roue et découvre ce que tu vas manger !",
+                    "txt-label-add": "Ajouter un féculent",
+                    "txt-list-items": "Liste des féculents",
+                    "txt-modal-result": 'Le féculent retenu est <strong>"%value%"</strong>',
+                }
+            };
+        </script>
+        <script type="module" src="js/scripts.js"></script>
     </body>
 </html>
