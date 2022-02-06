@@ -22,6 +22,12 @@ html, body {
     color: #fff;
     background: #efefef;
 }
+.gui-wrapper {
+    font-size: x-large;
+}
+#turn-wheel-btn {
+    font-size: x-large;
+}
 
 
 /************************************/
@@ -35,8 +41,14 @@ html, body {
 
 .wheel-wrapper {
     overflow: hidden;
-    height: min(80vh, 80vw);
-    width: 80vw;
+    height: min(100vh, 100vw);
+    width: 100vw;
+}
+@media (min-width: 992px) {
+    .wheel-wrapper {
+        height: min(80vh, 80vw);
+        width: 80vw;
+    }
 }
 .wheel-wrapper * {
     margin: 0;
